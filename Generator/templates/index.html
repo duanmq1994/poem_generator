@@ -1,0 +1,33 @@
+﻿{% extends "layout.html" %}
+
+{% block content %}
+
+<div>
+    <form action="/custom" method="post">
+        <div class="form-group">
+            <span>句子长度范围</span>
+            <input class="form-control" type="number" name="sent_min" value="3" /> ~ <input class="form-control" type="number" name="sent_max" value="10" /><br />
+        </div>
+        <div class="form-group">
+            <span>单句词汇数量</span>
+            <input class="form-control" type="number" name="word_min" value="2" /> ~ <input class="form-control" type="number" name="word_max" value="7" /><br />
+        </div>
+        <button class="btn btn-default" type="submit">生成</button>
+    </form>
+    <div class="panel panel-default" style="margin-top: 20px">
+        <div class="panel-body">
+            {% for seq in seqs %}
+            <p>{{ seq }}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script type="text/javascript">
+</script>
+
+{% endblock %}

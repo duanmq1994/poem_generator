@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+
+<html lang="ch" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../static/content/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/content/site.css" />
+</head>
+<body class="container">
+    <div>
+        <form action="/custom" method="post">
+            <div class="form-group">
+                <span>句子长度范围</span>
+                <input class="form-control" type="number" name="sent_min" value="3" /> ~ <input class="form-control" type="number" name="sent_max" value="10" /><br />
+            </div>
+            <div class="form-group">
+                <span>单句词汇数量</span>
+                <input class="form-control" type="number" name="word_min" value="2" /> ~ <input class="form-control" type="number" name="word_max" value="7" /><br/>
+            </div>
+            <button class="btn btn-default" type="submit">生成</button>
+        </form>
+    </div>
+    <div class="panel panel-default" style="margin-top: 20px">
+        <div class="panel-body">
+            <span>111</span>
+        </div>
+    </div>
+</body>
+</html>

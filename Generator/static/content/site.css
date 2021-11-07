@@ -1,0 +1,9 @@
+body {
+    padding-top: 50px;
+    background: #f9f9f9;
+}
+
+.form-control {
+    max-width: 100px;
+    display: inline;
+}
