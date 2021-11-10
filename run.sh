@@ -1,7 +1,7 @@
 #!/bin/bash
 
 name="poem"
-if [[ -n $(docker ps | grep $name) ]];then
+if [[ -n $(docker ps -a | grep $name) ]];then
 echo 'Now stop the container...'
 docker stop $name
 echo 'Now delete the container...'
@@ -16,4 +16,4 @@ fi
 echo 'Now build the new image...'
 docker build -t $name .
 echo 'Now run the new image...'
-docker run --name $name -d -p 5555:5555 $name
+docker run --name $name -d -p 5555:5555 -v gejsonVol:/app/Generator/json $name

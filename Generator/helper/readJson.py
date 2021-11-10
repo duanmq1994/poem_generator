@@ -13,3 +13,17 @@ def read(jpath):
             return json_dict
     except Exception as e:
         return [{"name":str(e)}]
+
+
+def insert(jpath, dict_obj):
+    '''
+    json字典列表写入文件
+    '''
+    try:
+        jfile = os.path.join(PATH, jpath)
+        if os.path.exists(jfile):
+            os.remove(jfile)
+        with open(jfile, 'w', encoding='utf-8') as f:
+            json.dump(dict_obj, f, ensure_ascii=False, indent=4)
+    except Exception as e:
+        return [{"name":str(e)}]

@@ -4,27 +4,44 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
-    <link rel="stylesheet" type="text/css" href="../static/content/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/content/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../static/content/bootstrap-select.css" />
     <link rel="stylesheet" type="text/css" href="../static/content/site.css" />
 </head>
-<body class="container">
+<body class="container admin">
+    <script src="../static/scripts/jquery-1.10.2.js"></script>
+    <script src="../static/scripts/bootstrap.js"></script>
+    <script src="../static/scripts/bootstrap.bundle.js"></script>
+    <script src="../static/scripts/bootstrap-select.js"></script>
+    <script src="../static/scripts/respond.js"></script>
+    <script>
+    </script>
     <div>
-        <form action="/custom" method="post">
+        <form action="/add" method="post">
             <div class="form-group">
-                <span>句子长度范围</span>
-                <input class="form-control" type="number" name="sent_min" value="3" /> ~ <input class="form-control" type="number" name="sent_max" value="10" /><br />
+                <span>类型</span>
+                <select class="selectpicker">
+                    <option>11</option>
+                    <option>11</option>
+                </select>
             </div>
             <div class="form-group">
-                <span>单句词汇数量</span>
-                <input class="form-control" type="number" name="word_min" value="2" /> ~ <input class="form-control" type="number" name="word_max" value="7" /><br/>
+                <span>词汇</span>
+                <input class="form-control input-admin" type="text" name="word_add" value="2" />
+                <span id="help_word_add" class="help-block error-block"></span>
             </div>
-            <button class="btn btn-default" type="submit">生成</button>
+            <div class="form-group">
+                <span>可接类型</span>
+                <select class="selectpicker" multiple>
+                    <option>11</option>
+                    <option>11</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button id="btn_add_word" class="btn btn-default">添加词汇</button>
+                <button id="btn_add_type" class="btn btn-default">添加类型</button>
+            </div>
         </form>
-    </div>
-    <div class="panel panel-default" style="margin-top: 20px">
-        <div class="panel-body">
-            <span>111</span>
-        </div>
     </div>
 </body>
 </html>

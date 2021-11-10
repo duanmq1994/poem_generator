@@ -1,0 +1,128 @@
+﻿{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="admin">
+    <div>
+        <h3>添加词汇</h3>
+        <form action="/add_word" method="post">
+            <div class="form-group">
+                <span>类型</span>
+                <select name="select" id="select" class="selectpicker" title="选择添加词汇的类型">
+                    {% for word_type in word_types %}
+                    <option>{{ word_type.type }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <span>词汇</span>
+                <input class="form-control input-admin" type="text" name="word_add" placeholder="输入新增词汇"/>
+                <span id="help_word_add" class="help-block error-block"></span>
+            </div>
+            {% if word_msg != {} %}
+            <div class="form-group">
+                {% if word_msg.code == 'ok' %}
+                <div class="alert-success">添加成功！</div>
+                {% else %}
+                <div class="alert-danger">添加失败！{{ word_msg.msg }}</div>
+                {% endif %}
+            </div>
+            {% endif %}
+            <div class="form-group">
+                <button id="btn_add_word" class="btn btn-default">添加</button>
+            </div>
+        </form>
+    </div>
+    <hr />
+    <div>
+        <h3>增改类型信息</h3>
+        <form action="/add_type" method="post">
+            <div class="form-group">
+                <span>新增类型</span>
+                <input class="form-control input-admin" type="text" id="type_name" name="type_name" placeholder="输入类型名" />
+                <span>或</span>
+            </div>
+            <div class="form-group">
+                <span>修改类型</span>
+                <select name="select_type" id="select_type" class="selectpicker" title="选择要修改的类型">
+                    {% for word_type in word_types %}
+                    <option>{{ word_type.type }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <span>可出现在开头</span>
+                    <input type="checkbox" name="start" />
+                </div>
+            </div>
+            <div class="form-group">
+                <span>可接类型</span>
+                <select name="select_multi" class="selectpicker" title="选择可后接的类型（多选）" multiple>
+                    {% for word_type in word_types %}
+                    <option>{{ word_type.type }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <span>可以此类型结尾</span>
+                    <input type="checkbox" name="end" />
+                </div>
+            </div>
+            {% if type_msg != {} %}
+            <div class="form-group">
+                {% if type_msg.code == 'ok' %}
+                <div class="alert-success">修改成功！</div>
+                {% else %}
+                <div class="alert-danger">修改失败！{{ type_msg.msg }}</div>
+                {% endif %}
+            </div>
+            {% endif %}
+            <div class="form-group">
+                <button id="btn_add_type" class="btn btn-default">确定</button>
+            </div>
+        </form>
+    </div>
+    <hr />
+    <div>
+        <h3>删除类型</h3>
+        <form action="/delete_type" method="post">
+            <div class="form-group">
+                <span>选择类型</span>
+                <select name="delete_type" id="select_type" class="selectpicker" title="选择要删除的类型">
+                    {% for word_type in word_types %}
+                    <option>{{ word_type.type }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            {% if delete_msg != {} %}
+            <div class="form-group">
+                {% if delete_msg.code == 'ok' %}
+                <div class="alert-success">删除成功！</div>
+                {% else %}
+                <div class="alert-danger">删除失败！{{ delete_msg.msg }}</div>
+                {% endif %}
+            </div>
+            {% endif %}
+            <div class="form-group">
+                <button class="btn btn-danger">删除</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script type="text/javascript">
+    $('#type_name').bind('focus', function () {
+        $('#select_type').selectpicker('val', null)
+    })
+    $('#select_type').bind('change', function () {
+        $('#type_name').val(null)
+    })
+</script>
+
+{% endblock %}

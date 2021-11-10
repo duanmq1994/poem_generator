@@ -11,6 +11,8 @@ def add(source_list, *args):
 def addFromDict(source_list, source_dict, *keys):
     try:
         for key in keys:
+            if key == 'end':
+                key = 999
             source_list.append(source_dict[key])
         return source_list
     except Exception as err:

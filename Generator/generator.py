@@ -1,57 +1,45 @@
-from Generator.helper import readJson, listHelper
+from Generator.helper import listHelper
 import random
 
-# 每行词数范围
-# SENT_MIN = 5
-# SENT_MAX = 5
-# 行数范围
-# WORD_MIN = 3
-# WORD_MAX = 10
+def __next_type__(word_dict, next_types):
 
-word_types = readJson.read('../json/words.json')
-word_dict = {}
-for i in word_types:
-    word_dict[i['type']] = word_types.index(i)
-
-def __next_type__(type_name):
     index_list = []
-    if type_name == 'num':
-        listHelper.addFromDict(index_list, word_dict, 'quali')
-    if type_name == 'quali':
-        listHelper.addFromDict(index_list, word_dict, 'noun', 'adj', 'verb')
-    if type_name == 'noun':
-        listHelper.addFromDict(index_list, word_dict, 'verb')
-    if type_name == 'verb':
-        listHelper.addFromDict(index_list, word_dict, 'verb', 'noun', 'conj')
-    if type_name == 'adj':
-        listHelper.addFromDict(index_list, word_dict, 'noun')
-    if type_name == 'conj':
-        listHelper.addFromDict(index_list, word_dict, 'noun', 999)
+    listHelper.addFromDict(index_list, word_dict, *next_types)
     index_list.sort()
     rand_index = random.randint(0, len(index_list) - 1)
     return index_list[rand_index]
 
-def __a_sentence__(type_index, WORD_MIN, WORD_MAX):
+def __a_sentence__(type_index, word_types, word_dict, word_len):
     try:
         sentence = ''
-        for i in range(random.randint(WORD_MIN, WORD_MAX)):
+        for i in range(random.randint(1,word_len)):
             type_item = word_types[type_index]
             data = type_item['data']
             sentence += data[random.randint(0, len(data) - 1)]
-            type_index = __next_type__(type_item['type'])
+            type_index = __next_type__(word_dict, type_item['next'])
     except Exception as err:
         pass
     finally:
         return sentence
 
-def run(SENT_MIN, SENT_MAX, WORD_MIN, WORD_MAX):
+def run(word_types, rules, sent_len, word_len):
     i = 1
     seq = []
-    while (i <= random.randint(SENT_MIN, SENT_MAX)):
+    
+    word_dict = {}
+    for index in word_types:
+        word_dict[index['type']] = word_types.index(index)
+    
+    start_rule = []
+    for item in rules:
+        if item['rule'] == 'start':
+            start_rule = item['data']
+
+    while (i <= sent_len):
         start_type_index = random.randint(0, len(word_types) - 1)
         start_type = word_types[start_type_index]['type']
-        if not start_type in ('quali', 'conj'):
-            seq_item = __a_sentence__(start_type_index, WORD_MIN, WORD_MAX)
+        if start_type in start_rule:
+            seq_item = __a_sentence__(start_type_index, word_types, word_dict, word_len)
             if len(seq_item) > 0:
                 seq.append(seq_item)
             i += 1
