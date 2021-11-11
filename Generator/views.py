@@ -7,7 +7,7 @@ from flask import render_template, send_from_directory, request
 from Generator import app
 from Generator import generator
 from Generator.helper import readJson, adminOpt
-import json, os
+import os
 
 @app.route('/favicon.ico')
 def favicon():
@@ -18,8 +18,10 @@ WORD_LEN = 5
 
 JSON_PATH = '../json/words.json'
 RULE_PATH = '../json/rules.json'
+COUNT_PATH = '../json/counts'
 WORD_TYPES = readJson.read(JSON_PATH)
 RULES = readJson.read(RULE_PATH)
+COUNTS = int(readJson.just_read(COUNT_PATH))
 
 title = '缱绻诗歌生成器'
 year = datetime.now().year
@@ -29,6 +31,7 @@ def admin():
     return render_template(
         'admin.html',
         title = 'admin',
+        counts = COUNTS,
         year = year,
         word_types = WORD_TYPES,
         word_msg = {},
@@ -57,6 +60,7 @@ def add_word():
         return render_template(
             'admin.html',
             title = 'admin',
+            counts = COUNTS,
             year = year,
             word_types = WORD_TYPES,
             word_msg = word_msg,
@@ -94,6 +98,7 @@ def add_type():
         return render_template(
             'admin.html',
             title = 'admin',
+            counts = COUNTS,
             year = year,
             word_types = WORD_TYPES,
             word_msg = {},
@@ -118,6 +123,7 @@ def delete_type():
         return render_template(
             'admin.html',
             title = 'admin',
+            counts = COUNTS,
             year = year,
             word_types = WORD_TYPES,
             word_msg = {},
@@ -128,9 +134,12 @@ def delete_type():
 @app.route('/')
 @app.route('/home')
 def home():
+    now_count = COUNTS + 1
+    readJson.just_write(COUNT_PATH, str(now_count))
     return render_template(
         'index.html',
         title = title,
+        counts = now_count,
         year = year,
         seqs = [],
         sent_len = SENT_LEN,
@@ -146,6 +155,7 @@ def custom():
     return render_template(
         'index.html',
         title = title,
+        counts = COUNTS,
         year = year,
         seqs = seq_list,
         sent_len = SENT_LEN,

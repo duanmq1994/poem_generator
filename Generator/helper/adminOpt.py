@@ -16,7 +16,7 @@ def add_word(word_types, json_path, change_type, word):
     for word_type in word_types:
         if word_type['type'] == change_type:
             word_type['data'].append(word)
-    readJson.insert(json_path, word_types)
+    readJson.rewrite(json_path, word_types)
 
 
 def update_type(word_types, json_path, type_name, next_types, end):
@@ -29,7 +29,7 @@ def update_type(word_types, json_path, type_name, next_types, end):
     for word_type in word_types:
         if word_type['type'] == type_name:
             word_type['next'] = next_types
-            readJson.insert(json_path, word_types)
+            readJson.rewrite(json_path, word_types)
             return
 
     new_type = {}
@@ -38,7 +38,7 @@ def update_type(word_types, json_path, type_name, next_types, end):
     new_type['next'] = next_types
 
     word_types.append(new_type)
-    readJson.insert(json_path, word_types)
+    readJson.rewrite(json_path, word_types)
 
 def update_start_rule(rules, rule_path, type_name, start):
     '''
@@ -50,7 +50,7 @@ def update_start_rule(rules, rule_path, type_name, start):
                 rule['data'].append(type_name)
             elif (type_name in rule['data'] and (start != 'on')):
                 rule['data'].remove(type_name)
-    readJson.insert(rule_path, rules)
+    readJson.rewrite(rule_path, rules)
 
 def delete_type(word_types, json_path, rules, rule_path, type_name):
     '''
@@ -62,9 +62,9 @@ def delete_type(word_types, json_path, rules, rule_path, type_name):
         else:
             if type_name in word_type['next']:
                 word_type['next'].remove(type_name)
-    readJson.insert(json_path, word_types)
+    readJson.rewrite(json_path, word_types)
 
     for rule in rules:
         if type_name in rule['data']:
             rule['data'].remove(type_name)
-    readJson.insert(rule_path, rules)
+    readJson.rewrite(rule_path, rules)

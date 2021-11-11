@@ -15,7 +15,7 @@ def read(jpath):
         return [{"name":str(e)}]
 
 
-def insert(jpath, dict_obj):
+def rewrite(jpath, dict_obj):
     '''
     json字典列表写入文件
     '''
@@ -27,3 +27,26 @@ def insert(jpath, dict_obj):
             json.dump(dict_obj, f, ensure_ascii=False, indent=4)
     except Exception as e:
         return [{"name":str(e)}]
+
+def just_read(path):
+    '''
+    读普通文件
+    '''
+    try:
+        file_path = os.path.join(PATH, path)
+        if os.path.exists(file_path):
+            with open(file_path, 'rb') as f:
+                return f.read()
+    except Exception as e:
+        return str(e)
+
+def just_write(path, str):
+    '''
+    写普通文件
+    '''
+    try:
+        file_path = os.path.join(PATH, path)
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write(str)
+    except Exception as e:
+        return str(e)
