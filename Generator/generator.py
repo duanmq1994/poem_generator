@@ -15,7 +15,9 @@ def __a_sentence__(seq, type_index, word_types, word_dict, word_len):
         i = 1
         while i <= random.randint(1,word_len):
             type_item = word_types[type_index]
-            if type_item['type'] == 'quali':
+            if type_item['type'] == '量词':
+                i -= 1
+            if type_item['type'] == '数词':
                 i -= 1
             data = type_item['data']
             new_word = data[random.randint(0, len(data) - 1)]
