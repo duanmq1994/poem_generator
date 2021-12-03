@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+
+<html lang="ch" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../static/content/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../static/content/bootstrap-select.css" />
+    <link rel="stylesheet" type="text/css" href="../static/content/site.css" />
+</head>
+<body class="container admin">
+    <script src="../static/scripts/jquery-1.10.2.js"></script>
+    <script src="../static/scripts/bootstrap.js"></script>
+    <script src="../static/scripts/bootstrap.bundle.js"></script>
+    <script src="../static/scripts/bootstrap-select.js"></script>
+    <script src="../static/scripts/respond.js"></script>
+    <script>
+    </script>
+    <div>
+        <form action="/add" method="post">
+            <div class="form-group">
+                <span>类型</span>
+                <select class="selectpicker">
+                    <option>11</option>
+                    <option>11</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <span>词汇</span>
+                <input class="form-control input-admin" type="text" name="word_add" value="2" />
+                <span id="help_word_add" class="help-block error-block"></span>
+            </div>
+            <div class="form-group">
+                <span>可接类型</span>
+                <select class="selectpicker" multiple>
+                    <option>11</option>
+                    <option>11</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button id="btn_add_word" class="btn btn-default">添加词汇</button>
+                <button id="btn_add_type" class="btn btn-default">添加类型</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

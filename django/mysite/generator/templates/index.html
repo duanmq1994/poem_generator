@@ -1,0 +1,56 @@
+﻿{% extends "layout.html" %}
+
+{% block content %}
+
+<div>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group form-group-color">
+            <span class="span-label">想看几句：<span id="span_sent_len">{{ sent_len }}</span></span>
+            <input class="slider" name="sent_len" id="sent_len" type="range" min="1" max="20" value="{{ sent_len }}" />
+        </div>
+        <div class="form-group form-group-color">
+            <span class="span-label">一句最多几个词：<span id="span_word_len">{{ word_len }}</span></span>
+            <input class="slider" name="word_len" id="word_len" type="range" min="1" max="20" value="{{ word_len }}" />
+        </div>
+        <button class="btn btn-default btn-submit" type="submit">生成</button>
+    </form>
+    <div class="panel-color" style="margin-top: 20px">
+        <div class="panel-body">
+            {% comment %} {% for seq in seqs %}
+                {% if seq|length > 0 %}
+                <p>{{ seq }}</p>
+                {% endif %}
+            {% endfor %} {% endcomment %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script type="text/javascript">
+    $('input').bind('input', function () {
+        span_id = '#span_' + this.id
+        $(span_id).text(this.value)
+    })
+    $('.btn-submit').bind('click', function (e) {
+        e.preventDefault()
+        let sent_len = $('#sent_len').val()
+        let word_len = $('#word_len').val()
+        $.post(
+            "/makepoem/",
+            {'sent_len':sent_len, 'word_len':word_len, 'csrfmiddlewaretoken':'{{ csrf_token }}'},
+            function(res){
+                if(res.code == 200){
+                    $('.panel-body').children().remove()
+                    res.message.forEach(seq => {
+                        $('.panel-body').append('<p>'+ seq + '</p>')
+                    })
+                }
+            })
+    })
+</script>
+
+{% endblock %}

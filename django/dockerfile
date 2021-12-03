@@ -1,0 +1,6 @@
+from django:2.2.7
+COPY . /app
+WORKDIR /app/mysite
+EXPOSE 5555
+ENTRYPOINT ["python"]
+CMD ["manage.py","runserver","0.0.0.0:5555"]

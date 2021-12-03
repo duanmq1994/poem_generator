@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" type="text/css" href="/static/content/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../static/content/bootstrap-select.css" />
+    <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
+    <script src="/static/scripts/modernizr-2.6.2.js"></script>
+</head>
+
+<body class="container">
+    <div>
+        {% block content %}{% endblock %}
+        <hr />
+        <footer>
+            <span>&copy; {{ year }}</span>
+            <a onclick="window.open('https://github.com/duanmq1994/poem_generator', '_blank').location">duanmq1994</a>
+            <!--<span>You're No.{{ counts }}</span>-->
+        </footer>
+    </div>
+
+    <script src="/static/scripts/jquery-1.10.2.js"></script>
+    <script src="/static/scripts/bootstrap.js"></script>
+    <script src="../static/scripts/bootstrap.bundle.js"></script>
+    <script src="/static/scripts/bootstrap-select.js"></script>
+    <script src="/static/scripts/respond.js"></script>
+    {% block scripts %}{% endblock %}
+
+</body>
+</html>
