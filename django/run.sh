@@ -16,4 +16,4 @@ fi
 echo 'Now build the new image...'
 docker build -t $name .
 echo 'Now run the new image...'
-docker run --name $name -d -p 5555:5555 $name
+docker run --name $name -d -p 5555:5555 -v djpoemVol:/app/mysite/db $name
